@@ -28,15 +28,15 @@ const SalesSchema = new Schema({
         required: true
     },
     hourPurch: {
-        type: String,
+        type: Number,
         required: true
     },
     dayPurch: {
-        type: String,
+        type: Number,
         required: true
     }
 });
 
 // Collection name : 450trans
-const salesModel = mongoose.model("Sales", SalesSchema);    // , "450trans"
+const salesModel = mongoose.model("Sales", SalesSchema, "450trans");  
 module.exports = salesModel; 

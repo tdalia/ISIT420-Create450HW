@@ -28,12 +28,26 @@ mongoose.connect(dbURI, options).then(
     }
 );
 
+var hour = 0;
+var day = 0;
 router.post('/NewSale', function(req, res) {
     var data = req.body;
     let salesObj = new Sales(data);
+
+    var nHr = Math.floor(Math.random() * (5 - 1) ) + 1;
+    hour += nHr;
+    if (hour > 23) {
+      hour -= 23;
+      day += 1;
+    }
+
     const date = new Date();
-    salesObj.hourPurch = date.toLocaleTimeString('en-US'); 
-    salesObj.dayPurch = date.toLocaleDateString('en-US'); 
+    salesObj.hourPurch = hour;
+    // Math.floor(Math.random() * (23 - 0) ); 
+    // date.toLocaleTimeString('en-US'); 
+    salesObj.dayPurch = day; 
+    // Math.floor(Math.random() * (356 - 0) ); 
+    // date.toLocaleDateString('en-US'); 
     // console.log(" SalesObj ", salesObj);
 
     salesObj.save((err, postedObj) => {
@@ -46,5 +60,7 @@ router.post('/NewSale', function(req, res) {
       }
     });
 });
+
+
 
 module.exports = router;
