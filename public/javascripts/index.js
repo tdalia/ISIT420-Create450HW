@@ -5,7 +5,6 @@ function Sales(pStoreID, pSalesPersonID, pCdID, pPricePaid) {
     this.pricePaid = pPricePaid;
 };
 
-// var salesObj;
 var storeIds = [98053, 98007, 98077, 98055, 98011, 98046];
 
 //POST 
@@ -19,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     document.getElementById("submitOne").addEventListener("click", function () {
         var salesObj = generateSalesObject();
-
+        // console.log("Before Calling Post: ", salesObj);
         $.ajax({
             url: '/NewSale', 
             method: 'POST', 
@@ -27,7 +26,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
             contentType: 'application/json',
             data: JSON.stringify(salesObj),
             success: function (result) {
-
+                // console.log("Success: ", result);
+            }, 
+            error: function(err) {
+                // console.log("Failed to Save: ", err);
             }
         })
     });
