@@ -6,6 +6,8 @@ function Sales(pStoreID, pSalesPersonID, pCdID, pPricePaid) {
 };
 
 var storeIds = [98053, 98007, 98077, 98055, 98011, 98046];
+var cdIds = [123456, 123654, 321456, 321654, 654123,
+    654321, 543216, 354126, 621453, 623451 ];
 
 //POST 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -17,29 +19,35 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     document.getElementById("submitOne").addEventListener("click", function () {
-        var salesObj = generateSalesObject();
-        // console.log("Before Calling Post: ", salesObj);
-        $.ajax({
-            url: '/NewSale', 
-            method: 'POST', 
-            dataType: 'json', 
-            contentType: 'application/json',
-            data: JSON.stringify(salesObj),
-            success: function (result) {
-                // console.log("Success: ", result);
-            }, 
-            error: function(err) {
-                // console.log("Failed to Save: ", err);
-            }
-        })
+        postSales();
     });
 
     document.getElementById("submit500").addEventListener("click", function () {
-
+        for(i=0; i < 500; i++) {
+            postSales();
+        }
     });
 
     getSales();
 });
+
+function postSales() {
+    var salesObj = generateSalesObject();
+    // console.log("Before Calling Post: ", salesObj);
+    $.ajax({
+        url: '/NewSale', 
+        method: 'POST', 
+        dataType: 'json', 
+        contentType: 'application/json',
+        data: JSON.stringify(salesObj),
+        success: function (result) {
+            // console.log("Success: ", result);
+        }, 
+        error: function(err) {
+            // console.log("Failed to Save: ", err);
+        }
+    });
+}
 
 function getSales() {
     var salesObj = generateSalesObject();
@@ -54,7 +62,8 @@ function generateSalesObject() {
     // Get StoreId for salesPerson
     var storeIdIndex = getSoreIdForSalesPersonId(salesPersonId);
     // Get CdId
-    var cdId = 123456;
+    var cdIndex = getRndInteger(0, cdIds.length-1);
+    var cdId = cdIds[cdIndex];
     // Get pricePaid
     var price = getRndInteger(5, 15);
 
