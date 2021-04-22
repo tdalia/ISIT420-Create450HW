@@ -26,6 +26,16 @@ const SalesSchema = new Schema({
     pricePaid: {
         type: Number,
         required: true
+    },
+    hourPuch: {
+        type: Date,
+        default: Date.now,
+        required: true
+    },
+    dayPuch: {
+        type: Date,
+        default: Date.Date,
+        required: time
     }
 });
 
